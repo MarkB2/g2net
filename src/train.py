@@ -115,9 +115,10 @@ def train(cfg: DictConfig) -> Tuple[dict, dict]:
     return metric_dict, object_dict
 
 
-@hydra.main(version_base="1.2", config_path=root / "configs", config_name="train.yaml")
+# @hydra.main(version_base="1.2", config_path=root / "configs", config_name="train.yaml")
+@hydra.main(version_base=None, config_path=str(root/'configs'), config_name="train.yaml")
 def main(cfg: DictConfig) -> Optional[float]:
-
+    
     # train the model
     metric_dict, _ = train(cfg)
 
@@ -128,7 +129,10 @@ def main(cfg: DictConfig) -> Optional[float]:
 
     # return optimized metric
     return metric_value
-
+    # from omegaconf import OmegaConf
+    # print(OmegaConf.to_yaml(cfg))
+    # from os import getenv
+    # print('ENV:', getenv('PROJECT_ROOT'))
 
 if __name__ == "__main__":
     main()
